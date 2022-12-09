@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TimeInterval.js</title>
+    <script src="TimeInterval.js"></script>
+    <style>
+      
+    </style>
+  </head>
+  <body> 
+    <main id="main">
+      <button id="start">START</button> 
+      <button id="pause">PAUSE</button> 
+      <button id="resume">RESUME</button>
+      <pre id="pre"></pre>
+    </main>
+    <script>
+      
+      const $pre = document.getElementById('pre');
+      const log = html => {
+        $pre.innerHTML += html + "\n";
+      }
+      
+      const TI = new TimeInterval( 2000 );
+      
+      const UI = {
+        start: e => {
+          TI.onTimeUpdate = seconds => {
+            log( seconds );
+          }
+        },
+        pause: e => TI.pause(),
+        resume: e => TI.resume()
+      }
+      
+      document.querySelectorAll('button').forEach(
+        $el => $el.onpointerdown = e => UI[e.currentTarget.id]()
+      );
+      
+      
+      /**
+        * Example of the short have JavaScript 1.0-like methods.
+        * Look at the contol.log
+        */
+      const interval = setTimeInterval( console.log, 2000 );
+      setTimeout(()=>clearTimeInterval(interval), 7000);
+      
+    </script>
+  </body>
+</html>
